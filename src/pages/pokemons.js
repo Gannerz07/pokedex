@@ -1,8 +1,9 @@
 import {db} from "../core/firebase-config";
 import {collection, getDocs} from "firebase/firestore";
+import { useState } from "react";
 
 const Pokemons = () => {
-    const pokemons = []; // intialise an empty variable to hold our pokemon
+    const [pokemons, setPokemons] = useState([]); // intialise an empty variable to hold our pokemon
 
     // function to get pokemon out of firestore
     const getPokemons = async () => { // async is needed whenever fetching data
@@ -14,7 +15,7 @@ const Pokemons = () => {
                 // for each document in this collection do...
                 pokemonsSnap.forEach (
                     // add each document into the array (pokemons line 5)
-                    doc => (pokemons.push({...doc.data(), id:doc.id}))
+                    doc => setPokemons([{...doc.data(), id:doc.id}])
                 )
             }
         }
@@ -22,17 +23,19 @@ const Pokemons = () => {
             console.log(error);
         }
     }
+    
     getPokemons();
-    console.log(pokemons);
+
+    console.log(pokemons)
     return ( 
         <div>
             {pokemons.map((pokemon) => {
-                console.log(pokemon);
                 return (
-                    <div key={pokemon.id}><h1>{pokemon.name}</h1></div>
+                    <div key={pokemon.id}>
+                        <h1>{pokemon.name}</h1>
+                    </div>
                 )
             })}
-            test
         </div>
      );
 }
