@@ -7,7 +7,7 @@ const Layout = () => {
             <header className="bg-blue-600 p-4 sm:p-6 text-center">
                 <h1 className="2xl font-bold text-neutral-100">Pokedex App</h1>
             </header>
-            <main>
+            <main className="m-4">
                 <Outlet />
             </main>
         </> 
