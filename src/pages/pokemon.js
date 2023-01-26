@@ -4,18 +4,19 @@ import {db} from "../core/firebase-config";
 import { useEffect, useState } from "react";
 
 const Pokemon = () => {
-    const {id} = useParams();
-    const docRef = doc(db, "pokemons", id);
-
     const [ pokemon, setPokemon ] = useState("");
+    const {id} = useParams();
 
     useEffect(() => {
+        const docRef = doc(db, "pokemons", id);
         const getPokemon = async () => {
             const docSnap = await getDoc(docRef);
             setPokemon(docSnap.data());
         };
         getPokemon();
-        }, [docRef]);
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, []);
 
     return ( 
         <h1>{ pokemon.name }</h1>

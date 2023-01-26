@@ -5,16 +5,15 @@ import { Link } from "react-router-dom";
 
 const Pokemons = () => {
     const [pokemons, setPokemons] = useState([]);
-    const pokemonsRef = collection(db, "pokemons"); // this is how we reference the collection from firestore
-    
+
     useEffect(() => {
+        const pokemonsRef = collection(db, "pokemons"); // this is how we reference the collection from firestore
         const getPokemons = async () => {
-          const data = await getDocs(pokemonsRef);
-          setPokemons(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+            const data = await getDocs(pokemonsRef);
+            setPokemons(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
         };
-    
         getPokemons();
-      }, [ pokemonsRef ]);
+      }, []);
 
     return ( 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
